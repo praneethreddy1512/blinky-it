@@ -21,7 +21,7 @@ import { setAllCategory } from "./store/productSlice";
 import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
-import { setAllSubCategory } from './store/productSlice'
+import { setAllSubCategory } from "./store/productSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,35 +31,40 @@ function App() {
     dispatch(setUserDetails(userData.data));
   };
 
-    const fetchCategory = async () => {
+  const fetchCategory = async () => {
     try {
-        const response = await axios.get("http://localhost:8800/api/category/get-category");
-        const { data: responseData } = response;
-
-        if (responseData.success) {
-            dispatch(setAllCategory(responseData.data.sort((a, b) => a.name.localeCompare(b.name))));
-        }
-    } catch (error) {
-        toast.error("Failed to fetch category data");
-    } finally {
-    }
-};
-
-  const fetchSubCategory = async () => {
-    
-    try {
-      const response = await axios.post('http://localhost:8800/api/subcategory/get');
+      const response = await axios.get(
+        "http://localhost:8800/api/category/get-category"
+      );
       const { data: responseData } = response;
 
       if (responseData.success) {
-          dispatch(setAllSubCategory(responseData.data));
-        }
+        dispatch(
+          setAllCategory(
+            responseData.data.sort((a, b) => a.name.localeCompare(b.name))
+          )
+        );
+      }
     } catch (error) {
-      toast.error("Failed to fetch subcategories")
-    } 
-  }
+      toast.error("Failed to fetch category data", error);
+    }
+  };
 
-  
+  const fetchSubCategory = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8800/api/subcategory/get"
+      );
+      const { data: responseData } = response;
+
+      if (responseData.success) {
+        dispatch(setAllSubCategory(responseData.data));
+      }
+    } catch (error) {
+      toast.error("Failed to fetch subcategories", error);
+    }
+  };
+
   useEffect(() => {
     fetchUser();
     fetchCategory();
@@ -113,7 +118,6 @@ function App() {
                 </AdminPermision>
               }
             />
-            {/* </Route> */}
           </Route>
         </Routes>
       </BrowserRouter>
