@@ -35,7 +35,7 @@ const Register = () => {
 
         try {
             const response = await axios.post(
-                'https://blinkyit.onrender.com//api/user/register', 
+                'https://blinkyit.onrender.com/api/user/register', 
                 data
             );
 
