@@ -26,14 +26,14 @@ const Category = () => {
     const fetchCategory = async()=>{
         try {
             setLoading(true)
-            const response = await axios.get("http://localhost:8800/api/category/get-category")
+            const response = await axios.get("https://blinkyit.onrender.com/api/category/get-category")
             const { data : responseData } = response
 
             if(responseData.success){
                 setCategoryData(responseData.data)
                 setLoading(false)}
         } catch (error) {
-            toast.error("Failed to fetch category data")
+            toast.error("Failed to fetch category data",error)
         }finally{
             setLoading(false)
         }
@@ -46,7 +46,7 @@ const Category = () => {
     const handleDeleteCategory = async()=>{
         try {
             
-            const response = await axios.delete(`http://localhost:8800/api/category/delete-category/${deleteCategory._id}`)
+            const response = await axios.delete(`https://blinkyit.onrender.com/api/category/delete-category/${deleteCategory._id}`)
 
             const { data : responseData } = response
 
@@ -56,7 +56,7 @@ const Category = () => {
                 setOpenConfirmBoxDelete(false)
             }
         } catch (error) {
-            toast.error("Failed to delete category")
+            toast.error("Failed to delete category",error)
         }
     }
 
@@ -74,7 +74,7 @@ const Category = () => {
 
         <div className='p-4 grid  grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2'>
             {
-                categoryData.map((category,index)=>{
+                categoryData.map((category)=>{
                     return(
                         <div className='w-32 h-56 rounded shadow-md' key={category._id}>
                             <img 

@@ -37,7 +37,7 @@ const EditCategory = ({ close, fetchData, data: CategoryData }) => {
         return;
       }
 
-      const response = await axios.post("http://localhost:8800/api/file/upload", formData, {
+      const response = await axios.post("https://blinkyit.onrender.com/api/file/upload", formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${authToken}`
@@ -81,7 +81,7 @@ const EditCategory = ({ close, fetchData, data: CategoryData }) => {
       }
 
       const response = await axios.put(
-        "http://localhost:8800/api/category/update-category",
+        "https://blinkyit.onrender.com/api/category/update-category",
         data,
         {
           headers: {

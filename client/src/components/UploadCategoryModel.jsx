@@ -34,7 +34,7 @@ const UploadCategoryModel = ({ close, fetchData }) => {
                 return;
             }
 
-            const response = await axios.post("http://localhost:8800/api/file/upload", formData, {
+            const response = await axios.post("https://blinkyit.onrender.com/api/file/upload", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${authToken}`
@@ -67,7 +67,7 @@ const UploadCategoryModel = ({ close, fetchData }) => {
             }
 
             const response = await axios.post(
-                "http://localhost:8800/api/category/add-category",
+                "https://blinkyit.onrender.com/api/category/add-category",
                 data, 
                 { 
                     headers: { 

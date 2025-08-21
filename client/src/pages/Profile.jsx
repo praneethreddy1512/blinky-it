@@ -44,7 +44,7 @@ const Profile = () => {
         try {
             setLoading(true)
             const response = await axios.put(
-                "http://localhost:8800/api/user/update-user",
+                "https://blinkyit.onrender.com/api/user/update-user",
                  userData,
                  {
                   headers:{

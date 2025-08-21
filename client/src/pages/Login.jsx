@@ -31,7 +31,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/user/login",
+        "https://blinkyit.onrender.com/api/user/login",
         data
       );
 

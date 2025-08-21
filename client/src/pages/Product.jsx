@@ -8,7 +8,7 @@ const Product = () => {
 
     const fetchData = async () => {
         try {
-            const url = 'http://localhost:8800/api/product/get-product'
+            const url = 'https://blinkyit.onrender.com/api/product/get-product'
             const response = await axios.get(url, {
                 headers: {
                     'Content-Type': 'application/json',

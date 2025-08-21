@@ -10,7 +10,7 @@ import { HiPencil } from "react-icons/hi";
 import EditSubCategory from '../components/EditSubCategory'
 import CofirmBox from '../components/CofirmBox'
 import toast from 'react-hot-toast'
-const SubCategoryPage = ({close}) => {
+const SubCategoryPage = () => {
   const [openAddSubCategory, setOpenAddSubCategory] = useState(false);
   const [data, setData] = useState([]);
   const columnHelper = createColumnHelper();
@@ -28,14 +28,14 @@ const SubCategoryPage = ({close}) => {
   const fetchSubCategory = async () => {
     
     try {
-      const response = await axios.post('http://localhost:8800/api/subcategory/get');
+      const response = await axios.post('https://blinkyit.onrender.com/api/subcategory/get');
       const { data: responseData } = response;
 
       if (responseData.success) {
           setData(responseData.data)
         }
     } catch (error) {
-      toast.error("Failed to fetch subcategories")
+      toast.error("Failed to fetch subcategories",error)
     } 
   }
 
@@ -68,7 +68,7 @@ const SubCategoryPage = ({close}) => {
         return(
           <>
             {
-              row.original.category.map((c,index)=>{
+              row.original.category.map((c)=>{
                 return(
                   <p key={c._id+"table"} className='shadow-md px-1 inline-block'>{c.name}</p>
                 )
@@ -102,7 +102,7 @@ const SubCategoryPage = ({close}) => {
   ]
 const handleDeleteSubCategory = async()=>{
     try {
-        const response = await axios.delete(`http://localhost:8800/api/subcategory/delete/${deleteSubCategory._id}`)
+        const response = await axios.delete(`https://blinkyit.onrender.com/api/subcategory/delete/${deleteSubCategory._id}`)
         const { data : responseData } = response
         if(responseData.success){
             toast.success(responseData.message)
@@ -110,7 +110,7 @@ const handleDeleteSubCategory = async()=>{
             fetchSubCategory()                // Refresh list!
         }
     } catch (error) {
-        toast.error("Failed to delete category")
+        toast.error("Failed to delete category",error)
     }
 }
 

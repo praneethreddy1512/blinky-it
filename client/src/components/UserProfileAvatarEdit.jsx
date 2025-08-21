@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updatedAvatar } from '../store/userslice'
 import { IoClose } from "react-icons/io5";
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const UserProfileAvatarEdit = ({close}) => {
     const user = useSelector(state => state.user)
@@ -27,7 +28,7 @@ const UserProfileAvatarEdit = ({close}) => {
         try {
             setLoading(true)
             const response = await axios.put(
-                "http://localhost:8800/api/user/upload-avatar",
+                "https://blinkyit.onrender.com/api/user/upload-avatar",
                 formData,
                 {
                 headers :{
@@ -40,7 +41,7 @@ const UserProfileAvatarEdit = ({close}) => {
             dispatch(updatedAvatar(responseData.data.avatar))
 
         } catch (error) {
-            AxiosToastError(error)
+            toast.error(error.response?.data?.message || "Failed to upload avatar")
         } finally{
             setLoading(false)
         }

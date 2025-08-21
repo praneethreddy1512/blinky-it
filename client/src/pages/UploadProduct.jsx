@@ -98,7 +98,7 @@ const UploadProduct = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:8800/api/product/upload-product",
+        "https://blinkyit.onrender.com/api/product/upload-product",
         data,
         {
           headers: {

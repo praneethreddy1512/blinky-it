@@ -36,7 +36,7 @@ const UploadSubCategoryModel = ({ close, fetchData }) => {
                 return;
             }
 
-            const response = await axios.post("http://localhost:8800/api/file/upload", formData, {
+            const response = await axios.post("https://blinkyit.onrender.com/api/file/upload", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${authToken}`
@@ -82,7 +82,7 @@ const UploadSubCategoryModel = ({ close, fetchData }) => {
             };
 
             const response = await axios.post(
-                "http://localhost:8800/api/subcategory/create",
+                "https://blinkyit.onrender.com/api/subcategory/create",
                 payload,
                 {
                     headers: {
@@ -167,7 +167,7 @@ const UploadSubCategoryModel = ({ close, fetchData }) => {
                         <div className='border focus-within:border-yellow-400 rounded'>
                             <div className='flex flex-wrap gap-2'>
                                 {
-                                    subCategoryData.category.map((cat,index)=>{
+                                    subCategoryData.category.map((cat)=>{
                                         return(
                                             <p key={cat._id+"selectedValue"} className='bg-white shadow-md px-1 m-1 flex items-center gap-2'>
                                                 {cat.name}
@@ -196,7 +196,7 @@ const UploadSubCategoryModel = ({ close, fetchData }) => {
                             >
                                 <option value={""}>Select Category</option>
                                 {
-                                    allCategory.map((category,index)=>{
+                                    allCategory.map((category)=>{
                                         return(
                                             <option value={category?._id} key={category._id+"subcategory"}>{category?.name}</option>
                                         )

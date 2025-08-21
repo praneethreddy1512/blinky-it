@@ -42,7 +42,7 @@ const EditSubCategory = ({close,data,fetchData}) => {
       return;
     }
 
-    const response = await axios.post("http://localhost:8800/api/file/upload", formData, {
+    const response = await axios.post("https://blinkyit.onrender.com/api/file/upload", formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': `Bearer ${authToken}`
@@ -104,7 +104,7 @@ const handleSubmitSubCategory = async(e) => {
       };
 
       const response = await axios.put(
-        "http://localhost:8800/api/subcategory/update",
+        "https://blinkyit.onrender.com/api/subcategory/update",
         payload,
         {
           headers: {

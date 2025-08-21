@@ -19,7 +19,7 @@ const handleLogout = async () => {
     const accessToken = localStorage.getItem("accesstoken");
 
     const response = await axios.post(
-      "http://localhost:8800/api/user/logout",
+      "https://blinkyit.onrender.com/api/user/logout",
       {}, 
       {
         withCredentials: true, 
