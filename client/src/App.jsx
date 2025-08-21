@@ -53,7 +53,7 @@ function App() {
   const fetchSubCategory = async () => {
     try {
       const response = await axios.post(
-        "https://blinkyit-ten.vercel.app/api/subcategory/get"
+        "https://blinkyit.onrender.com/api/subcategory/get"
       );
       const { data: responseData } = response;
 
