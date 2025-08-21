@@ -1,7 +1,7 @@
-import ProductModel from "../models/product.model.js"; 
+import ProductModel from "../models/product.model.js";
 export const createProduct = async (req, res) => {
   try {
-    const { 
+    const {
       name,
       image,
       category,
@@ -11,20 +11,26 @@ export const createProduct = async (req, res) => {
       price,
       discount,
       description,
-      more_details
+      more_details,
     } = req.body;
-    console.log(req.body)
+    console.log(req.body);
 
     if (
-      !name || 
-      !category || !Array.isArray(category) || category.length === 0 ||
-      !subCategory || !Array.isArray(subCategory) || subCategory.length === 0 ||
-      price === undefined || price === null ||
+      !name ||
+      !category ||
+      !Array.isArray(category) ||
+      category.length === 0 ||
+      !subCategory ||
+      !Array.isArray(subCategory) ||
+      subCategory.length === 0 ||
+      price === undefined ||
+      price === null ||
       !unit
     ) {
       return res.status(400).json({
         success: false,
-        message: "Please provide all required fields: name, category, subCategory, price, and unit."
+        message:
+          "Please provide all required fields: name, category, subCategory, price, and unit.",
       });
     }
 
@@ -38,65 +44,59 @@ export const createProduct = async (req, res) => {
       price,
       discount,
       description,
-      more_details
+      more_details,
     };
 
     const product = new ProductModel(payload);
     await product.save();
     return res.status(201).json({
-      message : "Product Created",
-      data : product,
-      error : false,
-      success : true
+      message: "Product Created",
+      data: product,
+      error: false,
+      success: true,
     });
   } catch (err) {
     console.log(err);
     res.status(500).json({
       success: false,
-      message: err.message
+      message: err.message,
     });
   }
 };
 
-export const getProductController = async(request,response)=>{
-    try {
-        
-        let { page, limit, search } = request.body 
+export const getProductController = async (request, response) => {
+  try {
+    let { page, limit, search } = request.query;
 
-        if(!page){
-            page = 1
-        }
+    page = Number(page) || 1;
+    limit = Number(limit) || 10;
 
-        if(!limit){
-            limit = 10
-        }
+    const query = search ? { $text: { $search: search } } : {};
 
-        const query = search ? {
-            $text : {
-                $search : search
-            }
-        } : {}
+    const skip = (page - 1) * limit;
 
-        const skip = (page - 1) * limit
+    const [data, totalCount] = await Promise.all([
+      ProductModel.find(query)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .populate("category subCategory"),
+      ProductModel.countDocuments(query),
+    ]);
 
-        const [data,totalCount] = await Promise.all([
-            ProductModel.find(query).sort({createdAt : -1 }).skip(skip).limit(limit).populate('category subCategory'),
-            ProductModel.countDocuments(query)
-        ])
-
-        return response.json({
-            message : "Product data",
-            error : false,
-            success : true,
-            totalCount : totalCount,
-            totalNoPage : Math.ceil( totalCount / limit),
-            data : data
-        })
-    } catch (error) {
-        return response.status(500).json({
-            message : error.message || error,
-            error : true,
-            success : false
-        })
-    }
-}
+    return response.json({
+      message: "Product data",
+      error: false,
+      success: true,
+      totalCount: totalCount,
+      totalNoPage: Math.ceil(totalCount / limit),
+      data: data,
+    });
+  } catch (error) {
+    return response.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+};

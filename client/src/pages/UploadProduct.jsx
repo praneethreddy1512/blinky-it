@@ -190,7 +190,7 @@ const UploadProduct = () => {
               {data?.image?.map((image, index) => {
                 return (
                   <div
-                    key={index}
+                    key={image+index}
                     className="h-20 w-20 mt-1 min-w-20 bg-blue-50 border relative group"
                   >
                     <img
@@ -201,7 +201,7 @@ const UploadProduct = () => {
                     />
                     <div
                       className="absolute bottom-0 right-0 p-1 rounded bg-red-500 hover:bg-red-600 hover:cursor-pointer text-white hidden group-hover:block"
-                      onClick={handleDeleteImage}
+                      onClick={(index) => handleDeleteImage(index)}
                     >
                       <MdDelete style={{ fontSize: 20 }} />
                     </div>
@@ -324,7 +324,7 @@ const UploadProduct = () => {
             </label>
             <input
               id="stock"
-              type="number"
+              type="text"
               placeholder="Enter product stock"
               name="stock"
               value={data.stock}
@@ -338,7 +338,7 @@ const UploadProduct = () => {
             <label htmlFor="price">Price</label>
             <input
               id="price"
-              type="number"
+              type="text"
               name="price"
               placeholder="Enter Product Price"
               value={data.price}
