@@ -34,7 +34,7 @@ function App() {
   const fetchCategory = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8800/api/category/get-category"
+        "https://blinkyit-ten.vercel.app/api/category/get-category"
       );
       const { data: responseData } = response;
 
@@ -53,7 +53,7 @@ function App() {
   const fetchSubCategory = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/subcategory/get"
+        "https://blinkyit-ten.vercel.app/api/subcategory/get"
       );
       const { data: responseData } = response;
 
