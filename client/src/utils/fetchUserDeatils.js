@@ -4,14 +4,13 @@ const fetchUserDetails = async () => {
   try {
     const accessToken = localStorage.getItem('accesstoken');
     const response = await axios.get(
-      `${process.env.VITE_API_URL}user/user-details`,
+      "https://blinkyit.onrender.com/api/user/user-details",
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       }
-    );
-    return response.data;
+    );    return response.data;
   } catch (error) {
     return error.response.data;
   }
