@@ -4,7 +4,7 @@ const fetchUserDetails = async () => {
   try {
     const accessToken = localStorage.getItem('accesstoken');
     const response = await axios.get(
-      `${import.meta.VITE_API_URL}user/user-details`,
+      `${process.env.VITE_API_URL}user/user-details`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
