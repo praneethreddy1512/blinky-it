@@ -17,9 +17,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*",
+    credentials: true,
+    origin: "https://blinky-it-sigma.vercel.app",
   })
 );
+
 
 app.use(express.json());
 app.use(cookieParser());
