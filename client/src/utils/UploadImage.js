@@ -9,7 +9,7 @@ const uploadImage = async (image) => {
     }
 
     // Return the response
-    return await axios.post(`${process.env.VITE_API_URL}/file/upload`, formData, {
+    return await axios.post("https://blinkyit.onrender.com/api/file/upload", formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${authToken}` 
