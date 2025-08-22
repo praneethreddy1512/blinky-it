@@ -4,7 +4,7 @@ const fetchUserDetails = async () => {
   try {
     const accessToken = localStorage.getItem('accesstoken');
     const response = await axios.get(
-      "https://blinkyit-ten.vercel.app/api/user/user-details",
+      `${import.meta.VITE_API_URL}user/user-details`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

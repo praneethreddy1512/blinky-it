@@ -13,7 +13,7 @@ const ProductAdmin = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const url = "https://blinkyit.onrender.com/api/product/get-product";
+      const url = `${import.meta.env.VITE_API_URL}product/get-product`;
       const response = await axios.get(url, {
         headers: {
           "Content-Type": "application/json",
@@ -22,14 +22,14 @@ const ProductAdmin = () => {
         params: {
           page,
           limit: 12,
-          search
+          search,
         },
       });
 
       const { data: responseData } = response;
-      if(responseData.success){
-        setTotalpage(responseData.totalNoPage)
-        setProducts(responseData.data)
+      if (responseData.success) {
+        setTotalpage(responseData.totalNoPage);
+        setProducts(responseData.data);
       }
     } catch (error) {
       toast.error(error.message);
@@ -49,29 +49,29 @@ const ProductAdmin = () => {
   }, [page]);
 
   const handelNext = () => {
-    if (page !== totalpage){
+    if (page !== totalpage) {
       setPage(page + 1);
     }
   };
-const handelPrevious = () => {
-  if (page !== (totalpage-1)){
-    setPage(page - 1);  
-  }
-};
-useEffect(()=>{
-  let flag = true 
-
-  const interval = setTimeout(() => {
-    if(flag){
-      fetchData()
-      flag = false
+  const handelPrevious = () => {
+    if (page !== totalpage - 1) {
+      setPage(page - 1);
     }
-  }, 300);
+  };
+  useEffect(() => {
+    let flag = true;
 
-  return ()=>{
-    clearTimeout(interval)
-  }
-},[search])
+    const interval = setTimeout(() => {
+      if (flag) {
+        fetchData();
+        flag = false;
+      }
+    }, 300);
+
+    return () => {
+      clearTimeout(interval);
+    };
+  }, [search]);
 
   return (
     <section className="">
@@ -99,9 +99,21 @@ useEffect(()=>{
           </div>
         </div>
         <div className="flex justify-between my-4">
-          <button onClick={handelPrevious} className="border border-yellow-400 px-4 hover:bg-yellow-400 bg-transparent">Previous</button>
-          <button className="w-full bg-slate-100">{page}/{totalpage}</button>
-          <button onClick={handelNext} className="border border-yellow-400 px-4 hover:bg-yellow-400 bg-transparent">Next</button>
+          <button
+            onClick={handelPrevious}
+            className="border border-yellow-400 px-4 hover:bg-yellow-400 bg-transparent"
+          >
+            Previous
+          </button>
+          <button className="w-full bg-slate-100">
+            {page}/{totalpage}
+          </button>
+          <button
+            onClick={handelNext}
+            className="border border-yellow-400 px-4 hover:bg-yellow-400 bg-transparent"
+          >
+            Next
+          </button>
         </div>
       </div>
     </section>

@@ -9,7 +9,7 @@ const uploadImage = async (image) => {
     }
 
     // Return the response
-    return await axios.post("https://blinkyit-ten.vercel.app/api/file/upload", formData, {
+    return await axios.post(/file/upload", formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${authToken}` 

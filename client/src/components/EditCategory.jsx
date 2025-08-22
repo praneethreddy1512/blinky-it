@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
 import toast from "react-hot-toast";
-import uploadImage from "../utils/UploadImage";
+// import uploadImage from "../utils/UploadImage";
 const EditCategory = ({ close, fetchData, data: CategoryData }) => {
   const [data, setData] = useState({
     _id: CategoryData._id,
@@ -10,8 +10,8 @@ const EditCategory = ({ close, fetchData, data: CategoryData }) => {
     image: CategoryData.image,
   });
 
-  const [loading, setLoading] = useState(false); 
-  const [uploadingImage, setUploadingImage] = useState(false); 
+  const [loading, setLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -28,36 +28,44 @@ const EditCategory = ({ close, fetchData, data: CategoryData }) => {
     setUploadingImage(true);
     try {
       const formData = new FormData();
-      formData.append('image', file);
+      formData.append("image", file);
 
-      const authToken = localStorage.getItem('accesstoken');
+      const authToken = localStorage.getItem("accesstoken");
       if (!authToken) {
         toast.error("Authentication token not found. Please log in.");
         setUploadingImage(false);
         return;
       }
 
-      const response = await axios.post("https://blinkyit.onrender.com/api/file/upload", formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${authToken}`
-        },
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}file/upload`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
-     
       const { data: imageResponse } = response;
       if (imageResponse && imageResponse.data && imageResponse.data.url) {
-          setData((prev) => ({
-              ...prev,
-              image: imageResponse.data.url,
-          }));
-          toast.success("Image uploaded successfully");
+        setData((prev) => ({
+          ...prev,
+          image: imageResponse.data.url,
+        }));
+        toast.success("Image uploaded successfully");
       } else {
-          toast.error("Image upload failed: Unexpected response format from server.");
+        toast.error(
+          "Image upload failed: Unexpected response format from server."
+        );
       }
     } catch (error) {
       console.error("Image upload error:", error);
-      toast.error(error.response?.data?.message || "Failed to upload image. Please try again.");
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to upload image. Please try again."
+      );
     } finally {
       setUploadingImage(false);
     }
@@ -81,7 +89,7 @@ const EditCategory = ({ close, fetchData, data: CategoryData }) => {
       }
 
       const response = await axios.put(
-        "https://blinkyit.onrender.com/api/category/update-category",
+        `${import.meta.env.VITE_API_URL}category/update-category`,
         data,
         {
           headers: {

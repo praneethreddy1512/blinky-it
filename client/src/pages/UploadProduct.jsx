@@ -85,10 +85,9 @@ const UploadProduct = () => {
       };
     });
   };
-  
-  
-   const handleSubmit = async (e) => {
-   e.preventDefault();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     try {
       const authToken = localStorage.getItem("accesstoken");
@@ -98,7 +97,7 @@ const UploadProduct = () => {
       }
 
       const response = await axios.post(
-        "https://blinkyit.onrender.com/api/product/upload-product",
+        `${import.meta.env.VITE_API_URL}product/upload-product`,
         data,
         {
           headers: {
@@ -125,7 +124,7 @@ const UploadProduct = () => {
     } catch {
       toast.error("Failed to Upload Product");
     }
-  }
+  };
   return (
     <section className="">
       <div className="p-2 bg-white shadow-md flex items-center justify-between mt-2 mr-2">
@@ -190,7 +189,7 @@ const UploadProduct = () => {
               {data?.image?.map((image, index) => {
                 return (
                   <div
-                    key={image+index}
+                    key={image + index}
                     className="h-20 w-20 mt-1 min-w-20 bg-blue-50 border relative group"
                   >
                     <img
@@ -432,6 +431,6 @@ const UploadProduct = () => {
       )}
     </section>
   );
-}
+};
 
 export default UploadProduct;
