@@ -34,7 +34,7 @@ function App() {
   const fetchCategory = async () => {
     try {
       const response = await axios.get(
-        "https://blinkyit-ten.vercel.app/api/category/get-category"
+        `${import.meta.env.VITE_API_URL}category/get-category`
       );
       const { data: responseData } = response;
 
@@ -53,7 +53,7 @@ function App() {
   const fetchSubCategory = async () => {
     try {
       const response = await axios.post(
-        "https://blinkyit.onrender.com/api/subcategory/get"
+        `${import.meta.env.VITE_API_URL}subcategory/get`
       );
       const { data: responseData } = response;
 
