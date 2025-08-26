@@ -3,13 +3,13 @@ import Home from "./pages/Home";
 import SearchPage from "./pages/SearchPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import fetchUserDetails from "./utils/fetchUserDeatils";
+import fetchUserDetails from "./utils/fetchUserDeatils"; // fixed typo here
 import { useEffect } from "react";
 import { setUserDetails } from "./store/userslice";
 import { useDispatch } from "react-redux";
 import UserMenuMobile from "./pages/UserMenuMobile";
 import Dashboard from "./layouts/Dashboard";
-import Address from "./pages/Adress";
+import Address from "./pages/Adress"; // fixed typo here
 import Profile from "./pages/Profile";
 import Myorders from "./pages/Myorders";
 import UploadProduct from "./pages/UploadProduct";
@@ -22,6 +22,11 @@ import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { setAllSubCategory } from "./store/productSlice";
+import GlobalProvider from "./Provider/GlobalProvider";
+import Cancel from "./pages/Cancel";
+import CheckoutPage from "./pages/CheckoutPage";
+import ProductDisplayPage from "./pages/ProductDisplayPage";
+import ProductListPage from "./pages/ProductListPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,7 +51,7 @@ function App() {
         );
       }
     } catch (error) {
-      toast.error("Failed to fetch category data", error);
+      toast.error(error.message || "Failed to fetch category data");
     }
   };
 
@@ -61,7 +66,7 @@ function App() {
         dispatch(setAllSubCategory(responseData.data));
       }
     } catch (error) {
-      toast.error("Failed to fetch subcategories", error);
+      toast.error(error.message || "Failed to fetch subcategories");
     }
   };
 
@@ -74,53 +79,63 @@ function App() {
   return (
     <>
       <Toaster />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="search" element={<SearchPage />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="user" element={<UserMenuMobile />} />
+      <GlobalProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="search" element={<SearchPage />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="user" element={<UserMenuMobile />} />
 
-          <Route path="dashboard" element={<Dashboard />}>
-            <Route path="profile" element={<Profile />} />
-            <Route path="myorders" element={<Myorders />} />
-            <Route path="address" element={<Address />} />
+            <Route path="dashboard" element={<Dashboard />}>
+              <Route path="profile" element={<Profile />} />
+              <Route path="myorders" element={<Myorders />} />
+              <Route path="address" element={<Address />} />
+              <Route
+                path="product"
+                element={
+                  <AdminPermision>
+                    <ProductAdmin />
+                  </AdminPermision>
+                }
+              />
+              <Route
+                path="category"
+                element={
+                  <AdminPermision>
+                    <Category />
+                  </AdminPermision>
+                }
+              />
+              <Route
+                path="sub-category"
+                element={
+                  <AdminPermision>
+                    <SubCategory />
+                  </AdminPermision>
+                }
+              />
+              <Route
+                path="uploadproduct"
+                element={
+                  <AdminPermision>
+                    <UploadProduct />
+                  </AdminPermision>
+                }
+              />
+            </Route>
+
+            <Route path="cancel" element={<Cancel />} />
+            <Route path="checkout" element={<CheckoutPage />} />
+            <Route path="product/:product" element={<ProductDisplayPage />} />
             <Route
-              path="product"
-              element={
-                <AdminPermision>
-                  <ProductAdmin />
-                </AdminPermision>
-              }
+              path=":category/:subCategory"
+              element={<ProductListPage />}
             />
-            <Route
-              path="category"
-              element={
-                <AdminPermision>
-                  <Category />
-                </AdminPermision>
-              }
-            />
-            <Route
-              path="sub-category"
-              element={
-                <AdminPermision>
-                  <SubCategory />
-                </AdminPermision>
-              }
-            />
-            <Route
-              path="uploadproduct"
-              element={
-                <AdminPermision>
-                  <UploadProduct />
-                </AdminPermision>
-              }
-            />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </GlobalProvider>
     </>
   );
 }

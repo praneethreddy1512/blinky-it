@@ -283,7 +283,7 @@ const UploadProduct = () => {
               ))}
             </select>
             <div className="flex flex-wrap gap-3">
-              {data?.subCategory.map((cat, index) => {
+              {data?.subCategory?.map((cat, index) => {
                 return (
                   <div
                     key={index}
@@ -387,7 +387,7 @@ const UploadProduct = () => {
                       });
                     }}
                     required
-                    className="bg-blue-50 p-2 outline-none border focus-within:border-primary-200 rounded"
+                    className="bg-blue-50 p-2 outline-none border focus-within:border-yellow-400 rounded"
                   />
                 </div>
               );

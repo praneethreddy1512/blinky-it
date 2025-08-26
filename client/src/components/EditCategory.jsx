@@ -135,7 +135,7 @@ const EditCategory = ({ close, fetchData, data: CategoryData }) => {
               value={data.name}
               name="name"
               onChange={handleOnChange}
-              className="bg-blue-50 p-2 border border-blue-100 focus-within:border-primary-200 outline-none rounded"
+              className="bg-blue-50 p-2 border border-blue-100 focus-within:border-yellow-400 outline-none rounded"
             />
           </div>
 
@@ -159,7 +159,7 @@ const EditCategory = ({ close, fetchData, data: CategoryData }) => {
                   className={`${
                     uploadingImage
                       ? "bg-gray-300"
-                      : "border-primary-200 hover:bg-primary-100"
+                      : "border-yellow-400 hover:bg-yellow-300"
                   } px-4 py-2 rounded cursor-pointer border font-medium`}
                 >
                   {uploadingImage ? "Uploading..." : "Upload Image"}

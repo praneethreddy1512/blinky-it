@@ -85,7 +85,7 @@ const UploadSubCategoryModel = ({ close, fetchData }) => {
 
       const payload = {
         ...subCategoryData,
-        category: subCategoryData.category.map((cat) => cat._id),
+        category: subCategoryData.category?.map((cat) => cat._id),
       };
 
       const response = await axios.post(
@@ -178,7 +178,7 @@ const UploadSubCategoryModel = ({ close, fetchData }) => {
             <label>Select Category</label>
             <div className="border focus-within:border-yellow-400 rounded">
               <div className="flex flex-wrap gap-2">
-                {subCategoryData.category.map((cat) => {
+                {subCategoryData.category?.map((cat) => {
                   return (
                     <p
                       key={cat._id + "selectedValue"}
@@ -213,7 +213,7 @@ const UploadSubCategoryModel = ({ close, fetchData }) => {
                 }}
               >
                 <option value={""}>Select Category</option>
-                {allCategory.map((category) => {
+                {allCategory?.map((category) => {
                   return (
                     <option
                       value={category?._id}

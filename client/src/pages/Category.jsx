@@ -80,7 +80,7 @@ const Category = () => {
       {!categoryData[0] && !loading && <NoData />}
 
       <div className="p-4 grid  grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
-        {categoryData.map((category) => {
+        {categoryData?.map((category) => {
           return (
             <div className="w-32 h-56 rounded shadow-md" key={category._id}>
               <img

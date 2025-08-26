@@ -110,7 +110,7 @@ const EditSubCategory = ({ close, data, fetchData }) => {
       // Convert category array to IDs only
       const payload = {
         ...subCategoryData,
-        category: subCategoryData.category.map((cat) => cat._id),
+        category: subCategoryData.category?.map((cat) => cat._id),
       };
 
       const response = await axios.put(
@@ -191,7 +191,7 @@ const EditSubCategory = ({ close, data, fetchData }) => {
             <label>Select Category</label>
             <div className="border focus-within:border-yellow-400 rounded">
               <div className="flex flex-wrap gap-2">
-                {subCategoryData.category.map((cat, index) => {
+                {subCategoryData.category?.map((cat, index) => {
                   return (
                     <p
                       key={cat._id + "selectedValue"}
@@ -226,7 +226,7 @@ const EditSubCategory = ({ close, data, fetchData }) => {
                 }}
               >
                 <option value={""}>Select Category</option>
-                {allCategory.map((category, index) => {
+                {allCategory?.map((category, index) => {
                   return (
                     <option
                       value={category?._id}

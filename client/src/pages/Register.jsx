@@ -72,7 +72,7 @@ const Register = () => {
               type="text"
               id="name"
               autoFocus
-              className="bg-blue-50 p-2 border rounded outline-none focus:border-primary-200"
+              className="bg-blue-50 p-2 border rounded outline-none focus:border-yellow-400"
               name="name"
               value={data.name}
               onChange={handleChange}
@@ -85,7 +85,7 @@ const Register = () => {
             <input
               type="email"
               id="email"
-              className="bg-blue-50 p-2 border rounded outline-none focus:border-primary-200"
+              className="bg-blue-50 p-2 border rounded outline-none focus:border-yellow-400"
               name="email"
               value={data.email}
               onChange={handleChange}
@@ -95,7 +95,7 @@ const Register = () => {
 
           <div className="grid gap-1">
             <label htmlFor="password">Password :</label>
-            <div className="bg-blue-50 p-2 border rounded flex items-center focus-within:border-primary-200">
+            <div className="bg-blue-50 p-2 border rounded flex items-center focus-within:border-yellow-400">
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
@@ -116,7 +116,7 @@ const Register = () => {
 
           <div className="grid gap-1">
             <label htmlFor="confirmPassword">Confirm Password :</label>
-            <div className="bg-blue-50 p-2 border rounded flex items-center focus-within:border-primary-200">
+            <div className="bg-blue-50 p-2 border rounded flex items-center focus-within:border-yellow-400">
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 id="confirmPassword"

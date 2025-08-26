@@ -10,6 +10,7 @@ import { HiPencil } from "react-icons/hi";
 import EditSubCategory from "../components/EditSubCategory";
 import CofirmBox from "../components/CofirmBox";
 import toast from "react-hot-toast";
+import Loading from "../components/Loading";
 const SubCategoryPage = () => {
   const [openAddSubCategory, setOpenAddSubCategory] = useState(false);
   const [data, setData] = useState([]);
@@ -69,7 +70,7 @@ const SubCategoryPage = () => {
       cell: ({ row }) => {
         return (
           <>
-            {row.original.category.map((c) => {
+            {row.original.category?.map((c) => {
               return (
                 <p
                   key={c._id + "table"}
@@ -145,11 +146,13 @@ const SubCategoryPage = () => {
         <DisplayTable data={data} column={column} />
       </div>
 
-      {openAddSubCategory && (
+      {openAddSubCategory ? (
         <UploadSubCategoryModel
           close={() => setOpenAddSubCategory(false)}
           fetchData={fetchSubCategory}
         />
+      ) : (
+        <Loading />
       )}
 
       {ImageURL && <ViewImage url={ImageURL} close={() => setImageURL("")} />}
