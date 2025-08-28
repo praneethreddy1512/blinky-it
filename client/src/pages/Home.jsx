@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import CategoryWiseProductDisplay from "../components/CategoryWiseProductDisplay";
 import { useNavigate } from "react-router-dom";
 import { valideURLConvert } from "../utils/valideURLConvert";
+import CartMobileLink from "../components/CartMobile";
 
 const Home = () => {
   const loadingCategory = useSelector((state) => state.product.loadingCategory);
@@ -98,6 +99,7 @@ const Home = () => {
         </section>
       </div>
       <Footer />
+      <CartMobileLink/>
     </div>
   );
 };

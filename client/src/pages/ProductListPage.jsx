@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { valideURLConvert } from "../utils/valideURLConvert";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import CartMobileLink from "../components/CartMobile";
 
 // Loading skeleton for subcategories
 const SubCategoryLoading = () => (
@@ -33,7 +34,7 @@ const EnhancedProductCard = ({ product }) => {
           loading="lazy"
         />
       </div>
-      
+
       {/* Badges */}
       <div className="flex items-center gap-2 mb-2">
         <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">
@@ -51,7 +52,7 @@ const EnhancedProductCard = ({ product }) => {
         <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 min-h-[2.5rem] leading-tight">
           {product.name}
         </h3>
-        
+
         <p className="text-sm text-gray-600 font-medium">
           {product.unit || "1 unit"}
         </p>
@@ -68,7 +69,7 @@ const EnhancedProductCard = ({ product }) => {
               </span>
             )}
           </div>
-          
+
           <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg text-sm font-semibold transition-colors duration-200 shadow-sm hover:shadow-md">
             Add
           </button>
@@ -84,11 +85,11 @@ const ProductListPage = () => {
   const [loading, setLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(1);
   const [subcategoriesLoading, setSubcategoriesLoading] = useState(true);
-  
+
   const params = useParams();
   const AllSubCategory = useSelector((state) => state.product.allSubCategory);
   const [DisplaySubCategory, setDisplaySubCategory] = useState([]);
-  
+
   const skeletonArray = new Array(6).fill(null);
   const subCategorySkeletonArray = new Array(8).fill(null);
 
@@ -120,7 +121,9 @@ const ProductListPage = () => {
       );
 
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}product/get-product-by-category-and-subcategory`,
+        `${
+          import.meta.env.VITE_API_URL
+        }product/get-product-by-category-and-subcategory`,
         {
           categoryId: categoryId,
           subCategoryId: subCategoryId,
@@ -141,7 +144,7 @@ const ProductListPage = () => {
         if (page === 1) {
           setData(responseData.data);
         } else {
-          setData(prev => [...prev, ...responseData.data]);
+          setData((prev) => [...prev, ...responseData.data]);
         }
         setTotalPage(responseData.totalCount);
         console.log("Products set:", responseData.data.length);
@@ -184,7 +187,7 @@ const ProductListPage = () => {
 
   const loadMoreProducts = () => {
     if (data.length < totalPage && !loading) {
-      setPage(prev => prev + 1);
+      setPage((prev) => prev + 1);
     }
   };
 
@@ -196,152 +199,165 @@ const ProductListPage = () => {
   }, [page, fetchProductdata]);
 
   return (
-    <>  
-    <Header />
-    <div className="bg-gray-50 min-h-screen">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex">
-          {/* Sidebar with subcategories */}
-          <div className="w-80 bg-white border-r border-gray-200 min-h-screen sticky top-0">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-800">Categories</h2>
-            </div>
-            
-            <div className="overflow-y-auto max-h-[calc(100vh-100px)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-              {subcategoriesLoading ? (
-                subCategorySkeletonArray.map((_, idx) => (
-                  <SubCategoryLoading key={`sub-skel-${idx}`} />
-                ))
-              ) : (
-                DisplaySubCategory.map((s) => {
-                  const link = `/${valideURLConvert(s?.category[0]?.name)}-${
-                    s?.category[0]?._id
-                  }/${valideURLConvert(s.name)}-${s._id}`;
-                  
-                  return (
-                    <Link
-                      key={s._id}
-                      to={link}
-                      className={`flex items-center p-4 border-b border-gray-100 hover:bg-green-50 transition-all duration-200 group ${
-                        subCategoryId === s._id 
-                          ? "bg-green-50 border-l-4 border-l-green-500" 
-                          : "hover:border-l-4 hover:border-l-green-200"
-                      }`}
-                    >
-                      <div className="w-14 h-14 mr-4 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden group-hover:bg-white transition-colors">
-                        <img
-                          src={s.image || "/api/placeholder/56/56"}
-                          alt={s.name}
-                          className="w-12 h-12 object-contain"
-                          loading="lazy"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <span className="text-sm font-medium text-gray-700 line-clamp-2 group-hover:text-green-700 transition-colors">
-                          {s.name}
-                        </span>
-                      </div>
-                    </Link>
-                  );
-                })
-              )}
-            </div>
-          </div>
+    <>
+      <Header />
+      <div className="bg-gray-50 min-h-screen">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex">
+            {/* Sidebar with subcategories */}
+            <div className="w-80 bg-white border-r border-gray-200 min-h-screen sticky top-0">
+              <div className="p-6 border-b border-gray-200">
+                <h2 className="text-lg font-semibold text-gray-800">
+                  Categories
+                </h2>
+              </div>
 
-          {/* Main content area */}
-          <div className="flex-1 bg-white">
-            {/* Header */}
-            <div className="p-6 border-b border-gray-200 bg-white sticky top-0 z-10 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h1 className="text-2xl font-bold text-gray-800">
-                    {subCategoryName || "Products"}
-                  </h1>
-                  {!loading && data.length > 0 && (
-                    <p className="text-gray-600 mt-1">
-                      Showing {data.length} products
-                    </p>
+              <div className="overflow-y-auto max-h-[calc(100vh-100px)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                {subcategoriesLoading
+                  ? subCategorySkeletonArray.map((_, idx) => (
+                      <SubCategoryLoading key={`sub-skel-${idx}`} />
+                    ))
+                  : DisplaySubCategory.map((s) => {
+                      const link = `/${valideURLConvert(
+                        s?.category[0]?.name
+                      )}-${s?.category[0]?._id}/${valideURLConvert(s.name)}-${
+                        s._id
+                      }`;
+
+                      return (
+                        <Link
+                          key={s._id}
+                          to={link}
+                          className={`flex items-center p-4 border-b border-gray-100 hover:bg-green-50 transition-all duration-200 group ${
+                            subCategoryId === s._id
+                              ? "bg-green-50 border-l-4 border-l-green-500"
+                              : "hover:border-l-4 hover:border-l-green-200"
+                          }`}
+                        >
+                          <div className="w-14 h-14 mr-4 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden group-hover:bg-white transition-colors">
+                            <img
+                              src={s.image || "/api/placeholder/56/56"}
+                              alt={s.name}
+                              className="w-12 h-12 object-contain"
+                              loading="lazy"
+                            />
+                          </div>
+                          <div className="flex-1">
+                            <span className="text-sm font-medium text-gray-700 line-clamp-2 group-hover:text-green-700 transition-colors">
+                              {s.name}
+                            </span>
+                          </div>
+                        </Link>
+                      );
+                    })}
+              </div>
+            </div>
+
+            {/* Main content area */}
+            <div className="flex-1 bg-white">
+              {/* Header */}
+              <div className="p-6 border-b border-gray-200 bg-white sticky top-0 z-10 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h1 className="text-2xl font-bold text-gray-800">
+                      {subCategoryName || "Products"}
+                    </h1>
+                    {!loading && data.length > 0 && (
+                      <p className="text-gray-600 mt-1">
+                        Showing {data.length} products
+                      </p>
+                    )}
+                  </div>
+
+                  {loading && (
+                    <div className="flex items-center text-sm text-gray-500">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600 mr-2"></div>
+                      Loading...
+                    </div>
                   )}
                 </div>
-                
-                {loading && (
-                  <div className="flex items-center text-sm text-gray-500">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600 mr-2"></div>
-                    Loading...
+              </div>
+
+              {/* Products Grid */}
+              <div className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {/* Loading skeletons for initial load */}
+                  {loading &&
+                    data.length === 0 &&
+                    skeletonArray.map((_, idx) => (
+                      <CardLoading key={"product-list-skel-" + idx} />
+                    ))}
+
+                  {/* Product Cards */}
+                  {data.length > 0 &&
+                    data.map((p, index) => {
+                      return (
+                        <CardProduct
+                          data={p}
+                          key={p._id + "productSubCategory" + index}
+                        />
+                        // Alternatively, use the enhanced card:
+                        // <EnhancedProductCard
+                        //   key={p._id + "productSubCategory" + index}
+                        //   product={p}
+                        // />
+                      );
+                    })}
+
+                  {/* Loading skeletons for pagination */}
+                  {loading &&
+                    data.length > 0 &&
+                    skeletonArray
+                      .slice(0, 3)
+                      .map((_, idx) => (
+                        <CardLoading key={"more-product-skel-" + idx} />
+                      ))}
+                </div>
+
+                {/* Empty State */}
+                {!loading && data.length === 0 && (
+                  <div className="text-center py-16">
+                    <div className="text-gray-300 text-6xl mb-4">📦</div>
+                    <h3 className="text-xl font-semibold text-gray-600 mb-2">
+                      No products found
+                    </h3>
+                    <p className="text-gray-500 max-w-md mx-auto">
+                      We couldn't find any products in this category. Please try
+                      selecting a different category or check back later.
+                    </p>
                   </div>
                 )}
+
+                {/* Load More Button */}
+                {!loading && data.length > 0 && data.length < totalPage && (
+                  <div className="text-center mt-12">
+                    <button
+                      onClick={loadMoreProducts}
+                      className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                    >
+                      Load More Products
+                    </button>
+                  </div>
+                )}
+
+                {/* Reached End Message */}
+                {!loading &&
+                  data.length > 0 &&
+                  data.length >= totalPage &&
+                  totalPage > 8 && (
+                    <div className="text-center mt-8 py-4 text-gray-500">
+                      <p>
+                        You've viewed all available products in this category
+                      </p>
+                    </div>
+                  )}
               </div>
-            </div>
-
-            {/* Products Grid */}
-            <div className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Loading skeletons for initial load */}
-                {loading && data.length === 0 &&
-                  skeletonArray.map((_, idx) => (
-                    <CardLoading key={"product-list-skel-" + idx} />
-                  ))}
-
-                {/* Product Cards */}
-                {data.length > 0 &&
-                  data.map((p, index) => {
-                    return (
-                      <CardProduct
-                        data={p}
-                        key={p._id + "productSubCategory" + index}
-                      />
-                      // Alternatively, use the enhanced card:
-                      // <EnhancedProductCard
-                      //   key={p._id + "productSubCategory" + index}
-                      //   product={p}
-                      // />
-                    );
-                  })}
-
-                {/* Loading skeletons for pagination */}
-                {loading && data.length > 0 &&
-                  skeletonArray.slice(0, 3).map((_, idx) => (
-                    <CardLoading key={"more-product-skel-" + idx} />
-                  ))}
-              </div>
-
-              {/* Empty State */}
-              {!loading && data.length === 0 && (
-                <div className="text-center py-16">
-                  <div className="text-gray-300 text-6xl mb-4">📦</div>
-                  <h3 className="text-xl font-semibold text-gray-600 mb-2">
-                    No products found
-                  </h3>
-                  <p className="text-gray-500 max-w-md mx-auto">
-                    We couldn't find any products in this category. Please try selecting a different category or check back later.
-                  </p>
-                </div>
-              )}
-
-              {/* Load More Button */}
-              {!loading && data.length > 0 && data.length < totalPage && (
-                <div className="text-center mt-12">
-                  <button
-                    onClick={loadMoreProducts}
-                    className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-                  >
-                    Load More Products
-                  </button>
-                </div>
-              )}
-
-              {/* Reached End Message */}
-              {!loading && data.length > 0 && data.length >= totalPage && totalPage > 8 && (
-                <div className="text-center mt-8 py-4 text-gray-500">
-                  <p>You've viewed all available products in this category</p>
-                </div>
-              )}
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <Footer/>
+      <Footer />
+      <CartMobileLink />
     </>
   );
 };

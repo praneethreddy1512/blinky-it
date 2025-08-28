@@ -8,6 +8,7 @@ import noDataImage from "../assets/nothing here yet.png";
 import toast from "react-hot-toast";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import CartMobileLink from "../components/CartMobile";
 const SearchPage = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -189,6 +190,7 @@ const SearchPage = () => {
         </div>
       </section>
       <Footer />
+      <CartMobileLink />
     </>
   );
 };

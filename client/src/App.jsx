@@ -27,6 +27,7 @@ import Cancel from "./pages/Cancel";
 import CheckoutPage from "./pages/CheckoutPage";
 import ProductDisplayPage from "./pages/ProductDisplayPage";
 import ProductListPage from "./pages/ProductListPage";
+import CartMobile from "./pages/CartMobile";
 
 function App() {
   const dispatch = useDispatch();
@@ -85,6 +86,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="search" element={<SearchPage />} />
+            <Route path="cart" element={<CartMobile />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="user" element={<UserMenuMobile />} />
