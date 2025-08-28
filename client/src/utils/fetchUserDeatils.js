@@ -14,7 +14,7 @@ const fetchUserDetails = async () => {
         },
       }
     );
-
+    console.log("response login page", response);
     return response.data;
   } catch (error) {
     return error.response;

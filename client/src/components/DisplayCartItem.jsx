@@ -37,7 +37,7 @@ const DisplayCartItem = ({ close }) => {
       await deleteCartItem(cartId);
       toast.success("Item removed from cart");
     } catch (error) {
-      toast.error("Failed to remove item");
+      toast.error(error.message ||"Failed to remove item");
     } finally {
       setIsRemoving(false);
     }

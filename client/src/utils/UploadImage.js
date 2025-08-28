@@ -8,8 +8,9 @@ const uploadImage = async (image) => {
         throw new Error("Authentication token not found. Please log in.");
     }
 
-    // Return the response
+    // Return the respons
     return await axios.post(`${import.meta.env.VITE_API_URL}file/upload`, formData, {
+
         headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${authToken}` 

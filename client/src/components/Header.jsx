@@ -139,7 +139,6 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Cart Display */}
       {openCart && <DisplayCartItem close={handleCloseCart} />}
     </>
   );
