@@ -20,7 +20,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: `${process.env.CLIENT_URL}`
+    origin: "https://blinky-it-sigma.vercel.app/"
 
   })
 );
