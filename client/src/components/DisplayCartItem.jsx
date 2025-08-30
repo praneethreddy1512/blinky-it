@@ -48,12 +48,12 @@ const DisplayCartItem = ({ close }) => {
       <div className="bg-white w-full max-w-sm min-h-screen max-h-screen ml-auto">
         <div className="flex items-center p-4 shadow-md gap-3 justify-between border-b">
           <h2 className="font-semibold text-lg">Shopping Cart</h2>
-          <Link to={"/"} className="lg:hidden">
+          {/* <Link to={"/"} className="lg:hidden">
             <IoClose size={25} />
-          </Link>
+          </Link> */}
           <button
-            onClick={close}
-            className="hidden lg:block hover:bg-gray-100 p-1 rounded"
+           onClick={close} 
+            className="lg:block hover:bg-gray-100 p-1 rounded"
           >
             <IoClose size={25} />
           </button>
@@ -202,7 +202,7 @@ const DisplayCartItem = ({ close }) => {
             <div className="flex flex-col gap-3">
               <button
                 onClick={redirectToCheckoutPage}
-                className="w-full border-2 border-green-600 text-green-700 hover:bg-green-600 hover:text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                className="w-full border-2 border-green-600 text-green-700 hover:bg-green-600 hover:text-white px-6 py-3 rounded-lg font-medium transition-colors mb-4"
               >
                 Checkout
               </button>
@@ -210,15 +210,7 @@ const DisplayCartItem = ({ close }) => {
                 <div className="text-lg font-bold">
                   {DisplayPriceInRupees(totalPrice)}
                 </div>
-                <button
-                  onClick={redirectToCheckoutPage}
-                  className="flex items-center gap-2 font-medium"
-                >
-                  Proceed to Checkout
-                  <span>
-                    <FaCaretRight />
-                  </span>
-                </button>
+                
               </div>
             </div>
           </div>

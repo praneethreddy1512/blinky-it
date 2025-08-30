@@ -61,7 +61,6 @@ const EditCategory = ({ close, fetchData, data: CategoryData }) => {
         );
       }
     } catch (error) {
-      console.error("Image upload error:", error);
       toast.error(
         error.response?.data?.message ||
           "Failed to upload image. Please try again."

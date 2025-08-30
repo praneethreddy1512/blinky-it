@@ -49,7 +49,6 @@ const GlobalProvider = ({ children }) => {
       }
     } catch (error) {
       // Improved error handling
-      console.error("Failed to fetch cart items:", error);
       const errorMessage = error.response?.data?.message || "Failed to fetch cart items.";
       toast.error(errorMessage);
     }
@@ -81,7 +80,6 @@ const GlobalProvider = ({ children }) => {
       // Improved error handling
       const errorMessage = error.response?.data?.message || "Failed to update cart item.";
       toast.error(errorMessage);
-      console.error("Update cart item error:", error);
     }
   };
 
@@ -109,7 +107,6 @@ const GlobalProvider = ({ children }) => {
       // Improved error handling
       const errorMessage = error.response?.data?.message || "Failed to delete cart item.";
       toast.error(errorMessage);
-      console.error("Delete cart item error:", error);
     }
   };
 
@@ -148,7 +145,6 @@ const GlobalProvider = ({ children }) => {
       // Improved error handling
       const errorMessage = error.response?.data?.message || "Failed to fetch addresses.";
       toast.error(errorMessage);
-      console.error("Fetch address error:", error);
     }
   };
 
@@ -166,7 +162,6 @@ const GlobalProvider = ({ children }) => {
         dispatch(setOrder(responseData.data));
       }
     } catch (error) {
-      console.error("Failed to fetch orders:", error);
       const errorMessage = error.response?.data?.message || "Failed to fetch orders.";
       toast.error(errorMessage);
     }

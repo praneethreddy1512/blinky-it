@@ -49,7 +49,6 @@ const UploadProduct = () => {
     setImageloading(true);
     const response = await uploadImage(file);
     const { data: ImageResponse } = response;
-    console.log(response);
 
     const imageURL = ImageResponse.data.url;
     setData((prevData) => ({

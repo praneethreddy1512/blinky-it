@@ -21,7 +21,6 @@ const SearchPage = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      console.log("Fetching search data for:", searchText, "page:", page);
 
       if (!searchText.trim()) {
         setData([]);
@@ -54,7 +53,6 @@ const SearchPage = () => {
           });
         }
         setTotalPage(responseData.totalPage);
-        console.log("Search response:", responseData);
 
         // Show success message for first page results
         if (responseData.page == 1 && responseData.data.length > 0) {
@@ -63,11 +61,9 @@ const SearchPage = () => {
           );
         }
       } else {
-        console.error("Search API returned success: false");
         toast.error("Search failed. Please try again.");
       }
     } catch (error) {
-      console.error("Search error:", error);
       toast.error(
         error.response?.data?.message || error.message || "Search failed"
       );
@@ -78,10 +74,8 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (searchText.trim()) {
-      console.log("Search text changed, fetching data for:", searchText);
       fetchData();
     } else {
-      console.log("No search text, clearing data");
       setData([]);
       setLoading(false);
     }
@@ -89,35 +83,26 @@ const SearchPage = () => {
 
   useEffect(() => {
     // Reset page to 1 when search text changes
-    console.log("Search text changed, resetting page to 1");
     setPage(1);
   }, [searchText]);
 
   // Initial search when component mounts
   useEffect(() => {
-    console.log("Component mounted, search text:", searchText);
     if (searchText.trim()) {
-      console.log("Initial search triggered");
       fetchData();
     } else {
-      console.log("No initial search text");
       setLoading(false);
     }
 
     // Cleanup function
-    return () => {
-      console.log("SearchPage component unmounting");
-    };
+  
   }, []); // Empty dependency array for initial mount only
 
   // Cleanup when search text changes
   useEffect(() => {
-    return () => {
-      console.log("Search text changed, cleaning up previous search");
-    };
+   
   }, [searchText]);
 
-  console.log("page", page);
 
   const handleFetchMore = () => {
     if (totalPage > page) {

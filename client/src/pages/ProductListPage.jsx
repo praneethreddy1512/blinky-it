@@ -93,7 +93,6 @@ const ProductListPage = () => {
   const skeletonArray = new Array(6).fill(null);
   const subCategorySkeletonArray = new Array(8).fill(null);
 
-  console.log("ProductListPage params:", params);
 
   const subCategory = params?.subCategory?.split("-");
   const subCategoryName = subCategory
@@ -103,22 +102,11 @@ const ProductListPage = () => {
   const categoryId = params.category.split("-").slice(-1)[0];
   const subCategoryId = params.subCategory.split("-").slice(-1)[0];
 
-  console.log(
-    "Extracted IDs - categoryId:",
-    categoryId,
-    "subCategoryId:",
-    subCategoryId
-  );
 
   const fetchProductdata = useCallback(async () => {
     try {
       setLoading(true);
-      console.log(
-        "Fetching products for categoryId:",
-        categoryId,
-        "subCategoryId:",
-        subCategoryId
-      );
+      
 
       const response = await axios.post(
         `${
@@ -137,7 +125,6 @@ const ProductListPage = () => {
         }
       );
 
-      console.log("API Response:", response.data);
       const { data: responseData } = response;
 
       if (responseData.success) {
@@ -147,13 +134,10 @@ const ProductListPage = () => {
           setData((prev) => [...prev, ...responseData.data]);
         }
         setTotalPage(responseData.totalCount);
-        console.log("Products set:", responseData.data.length);
       } else {
-        console.error("API returned success: false:", responseData);
         toast.error("Failed to fetch products");
       }
     } catch (error) {
-      console.error("Error fetching products:", error);
       toast.error(error?.response?.data?.message || "Error fetching products");
     } finally {
       setLoading(false);
@@ -169,18 +153,14 @@ const ProductListPage = () => {
 
   useEffect(() => {
     setSubcategoriesLoading(true);
-    console.log("Filtering subcategories for categoryId:", categoryId);
-    console.log("AllSubCategory:", AllSubCategory);
 
     const sub = AllSubCategory.filter((s) => {
       const filterData = s.category.some((el) => {
         return el._id == categoryId;
       });
-      console.log("Subcategory", s.name, "has category match:", filterData);
       return filterData;
     });
 
-    console.log("Filtered subcategories:", sub);
     setDisplaySubCategory(sub);
     setSubcategoriesLoading(false);
   }, [params, AllSubCategory, categoryId]);

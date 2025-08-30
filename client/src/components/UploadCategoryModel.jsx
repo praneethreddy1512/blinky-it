@@ -49,7 +49,6 @@ const UploadCategoryModel = ({ close, fetchData }) => {
       setData((prev) => ({ ...prev, image: imageResponse.data.url }));
       toast.success("Image uploaded successfully!");
     } catch (error) {
-      console.error("Client-side image upload error:", error);
       toast.error(
         error.response?.data?.message ||
           "Failed to upload image. Please try again."
@@ -93,7 +92,6 @@ const UploadCategoryModel = ({ close, fetchData }) => {
         toast.error(responseData.message || "Failed to add category");
       }
     } catch (error) {
-      console.error("Client-side category submit error:", error);
       toast.error(error.response?.data?.message || "Failed to add category");
     } finally {
       setLoading(false);

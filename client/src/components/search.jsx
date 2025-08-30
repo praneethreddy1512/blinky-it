@@ -32,7 +32,6 @@ const Search = () => {
     if (searchValue.trim()) {
       setIsSearching(true);
       const url = `/search?q=${encodeURIComponent(searchValue.trim())}`;
-      console.log("Navigating to search URL:", url);
       try {
         await navigate(url);
       } finally {
@@ -45,7 +44,6 @@ const Search = () => {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      console.log("Enter key pressed, searching for:", searchValue);
       e.preventDefault();
       handleSearch();
     }

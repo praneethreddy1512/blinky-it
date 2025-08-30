@@ -6,12 +6,14 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import fetchUserDetails from "../utils/fetchUserDeatils";
 import { setUserDetails } from "../store/userslice";
+import Loading from "../components/Loading";
 const Login = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,6 +30,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}user/login`,
         data
@@ -56,8 +59,9 @@ const Login = () => {
         err?.response?.data?.error ||
           "Email or Password is Wrong Please try again."
       );
-    }
-  };
+    }finally{
+      setLoading(false);  
+  };}
 
   return (
     <>
@@ -116,6 +120,7 @@ const Login = () => {
           </p>
         </div>
       </section>
+      {loading && <Loading />}
     </>
   );
 };

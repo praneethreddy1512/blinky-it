@@ -37,7 +37,6 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
       if (responseData.success) {
         setData(responseData.data);
       }
-      console.log(responseData.data);
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to fetch data");
     } finally {

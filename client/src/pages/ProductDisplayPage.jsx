@@ -11,7 +11,6 @@ import AddToCartButton from "../components/AddToCartButton";
 import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import CartMobileLink from "../components/CartMobile";
 
 const ProductDisplayPage = () => {
   const params = useParams();
@@ -327,7 +326,6 @@ const ProductDisplayPage = () => {
         </div>
       </section>
       <Footer />
-      <CartMobileLink />
     </>
   );
 };
